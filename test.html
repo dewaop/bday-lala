@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Landing Page</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to top right, #ffccff, #ff99cc);
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        text-align: center;
+      }
+
+      .balloons,
+      .hearts {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .balloon,
+      .heart {
+        position: absolute;
+        bottom: -100px;
+        width: 50px;
+        height: 80px;
+        animation: float 6s infinite ease-in-out;
+      }
+
+      .balloon {
+        background: radial-gradient(circle at 50% 50%, #ff0000, #990000);
+        border-radius: 50px 50px 0 0;
+      }
+
+      .heart {
+        background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Love_Heart_SVG.svg/1024px-Love_Heart_SVG.svg.png")
+          no-repeat center center;
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-300px) rotate(20deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+      }
+
+      .balloon:nth-child(odd) {
+        background: radial-gradient(circle at 50% 50%, #ff9900, #cc6600);
+        animation-duration: 7s;
+      }
+
+      .balloon:nth-child(even) {
+        background: radial-gradient(circle at 50% 50%, #3399ff, #0033cc);
+        animation-duration: 5s;
+      }
+
+      .card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      .card img {
+        max-width: 100%;
+        border-radius: 10px;
+      }
+
+      .greeting {
+        font-size: 24px;
+        color: #333;
+      }
+
+      .greeting span {
+        font-size: 30px;
+        color: #ff3366;
+      }
+
+      .note {
+        width: 300px;
+        height: 200px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: #ffcc99;
+        position: absolute;
+      }
+
+      @media (max-width: 600px) {
+        .greeting {
+          font-size: 18px;
+        }
+
+        .greeting span {
+          font-size: 24px;
+        }
+
+        .note {
+          width: 200px;
+          height: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="balloons">
+        <!-- Multiple balloon divs to create the effect -->
+        <div class="balloon" style="left: 10%; animation-delay: 0s"></div>
+        <div class="balloon" style="left: 30%; animation-delay: 2s"></div>
+        <div class="balloon" style="left: 50%; animation-delay: 4s"></div>
+        <div class="balloon" style="left: 70%; animation-delay: 1s"></div>
+        <div class="balloon" style="left: 90%; animation-delay: 3s"></div>
+      </div>
+      <div class="hearts">
+        <!-- Multiple heart divs to create the effect -->
+        <div class="heart" style="left: 15%; animation-delay: 1s"></div>
+        <div class="heart" style="left: 35%; animation-delay: 3s"></div>
+        <div class="heart" style="left: 55%; animation-delay: 2s"></div>
+        <div class="heart" style="left: 75%; animation-delay: 0s"></div>
+        <div class="heart" style="left: 95%; animation-delay: 4s"></div>
+      </div>
+      <div class="card" id="birthdayCard" onclick="changeCardContent()">
+        <img
+          src="https://media.giphy.com/media/l0HlQ7LRalM6h7z8I/giphy.gif"
+          alt="Happy Birthday GIF"
+          id="cardImage"
+        />
+        <div class="greeting" id="cardText">
+          Selamat Ulang Tahun <span>[Nama]</span>!
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const messages = [
+        "Selamat Ulang Tahun! Semoga harimu seindah senyummu!",
+        "Happy Birthday! Semoga semua impianmu tercapai!",
+        "Selamat Ulang Tahun! Semoga kesehatan dan kebahagiaan selalu menyertaimu!",
+        "Hari ini adalah milikmu! Selamat Ulang Tahun!",
+        "Selamat Ulang Tahun! Semoga tahun ini penuh dengan petualangan baru!",
+        "Selamat Ulang Tahun! Semoga harimu dipenuhi dengan cinta dan kebahagiaan!",
+        "Happy Birthday! Semoga kesuksesan selalu mengiringi langkahmu!",
+        "Selamat Ulang Tahun! Jadilah yang terbaik seperti biasanya!",
+        "Hari istimewa untuk orang yang istimewa! Selamat Ulang Tahun!",
+        "Selamat Ulang Tahun! Semoga setiap harimu dipenuhi dengan kebahagiaan!",
+      ];
+
+      const colors = [
+        "#ffcc99",
+        "#ff9999",
+        "#99ccff",
+        "#ccffcc",
+        "#ffff99",
+        "#ff9966",
+        "#66ccff",
+        "#cc99ff",
+        "#ff66cc",
+        "#99ff99",
+      ];
+
+      let clickCount = 0;
+
+      function changeCardContent() {
+        const cardText = document.getElementById("cardText");
+        const cardImage = document.getElementById("cardImage");
+        const birthdayCard = document.getElementById("birthdayCard");
+
+        if (clickCount < 10) {
+          cardText.innerHTML = messages[clickCount];
+          birthdayCard.style.backgroundColor = colors[clickCount];
+        } else {
+          cardText.innerHTML =
+            "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Love_Heart_SVG.svg/1024px-Love_Heart_SVG.svg.png' style='width: 50px; height: 50px;' alt='Love'>";
+          birthdayCard.style.backgroundColor = "#ff3366";
+          cardImage.style.display = "none";
+        }
+
+        clickCount++;
+      }
+    </script>
+  </body>
+</html>
